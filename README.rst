@@ -34,10 +34,16 @@ Installing Nginx modules requires rebuilding Nginx from source:
 * Grab the `Nginx source <http://nginx.net/>`_ and unpack it.
 * Clone this repository somewhere on your machine.
 * Check out the required submodule, as described above.
-* Change to the directory containing the Nginx source.
-* Now build::
+* Change to the mongo-c-driver directory, compile, and move output to /usr/local/lib::
 
-    $ ./configure --add-module=/path/to/nginx-gridfs/source/
+    $ make
+    $ sudo cp libbson.so /usr/local/lib/
+    $ sudo cp libmongoc.so /usr/local/lib/
+
+* Change to the directory containing the Nginx source.
+* Now build, loading the already-built Mongo C driver::
+
+    $ ./configure --add-module=/path/to/nginx-gridfs/source/ --with-ld-opt="-lmongoc"
     $ make
     $ make install
 
